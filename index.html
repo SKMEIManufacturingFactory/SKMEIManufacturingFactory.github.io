@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-EN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+
+    <!-- ★ 标题：包含主要关键词 -->
+    <title>SKMEI Watch Manufacturer – Premium OEM & ODM Watches Factory in China</title>
+
+    <!-- ★ 描述：简洁说明业务，吸引点击 -->
+    <meta name="description" content="SKMEI is a professional watch manufacturer in China, offering OEM/ODM services, digital watches, smart watches, and quartz watches. Get factory-direct pricing and global shipping." />
+
+    <!-- ★ 关键词 -->
+    <meta name="keywords" content="watch manufacturer China, OEM watch supplier, ODM watches, digital watches, smart watch factory" />
+
+    <!-- ★ Canonical 标签 -->
+    <link rel="canonical" href="https://www.skmeiglobal.com/" />
+
+    <!-- ★ Open Graph 标签 -->
+    <meta property="og:title" content="SKMEI Watch Manufacturer – Premium OEM & ODM Watches" />
+    <meta property="og:description" content="Professional watch factory in China. OEM/ODM services, digital, quartz, and smart watches. Global shipping available." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.skmeiglobal.com/" />
+    <meta property="og:image" content="https://www.skmeiglobal.com/images_webp/LOGO.webp" />
+
+    <!-- ★ Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SKMEI Watch Manufacturer" />
+    <meta name="twitter:description" content="Leading watch factory in China – OEM/ODM, digital, smart, quartz watches." />
+
+    <!-- ★ 结构化数据：Organization -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Guangdong SKMEI Watch Manufacturing Co., Ltd.",
+            "url": "https://www.skmeiglobal.com",
+            "logo": "https://www.skmeiglobal.com/images_webp/LOGO.webp",
+            "description": "Professional watch manufacturer in China, offering OEM/ODM services for digital, quartz, and smart watches.",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Block C6 Wanyang Zhongchuang Industrial Park, 41 Dawang Road, Zhaoqing High-tech Zone",
+                "addressLocality": "Zhaoqing",
+                "addressRegion": "Guangdong",
+                "addressCountry": "China"
+            },
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+86-18784776243",
+                "contactType": "Sales",
+                "availableLanguage": ["English", "Chinese"]
+            }
+        }
+    </script>
+
+    <!-- ★ Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CG0RZ1T6ZR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CG0RZ1T6ZR');
+    </script>
+
+    <style>
+        /* ---------- 全局重置 ---------- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+            background-color: #f0f2f5;
+            color: #2d3436;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: -200px;
+            left: -200px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212, 160, 23, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -150px;
+            right: -150px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(241, 196, 15, 0.04) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ============================================================
+           导航栏（与 About 统一：Logo 150px）
+           ============================================================ */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            padding: 16px 50px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: nowrap;
+            gap: 10px;
+            min-height: 110px;
+            transition: box-shadow 0.3s;
+        }
+        .top-bar:hover { box-shadow: 0 6px 32px rgba(0, 0, 0, 0.06); }
+        .top-left {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e2a3a;
+            font-size: 18px;
+            font-weight: 500;
+            gap: 10px;
+            white-space: nowrap;
+            height: auto;
+        }
+        .top-left .icon { font-size: 22px; opacity: 0.7; }
+        .top-left .highlight { color: #d4a017; font-weight: 600; }
+        .top-center {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+        .logo-img {
+            height: 150px;
+            width: auto;
+            max-width: 180px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.04));
+        }
+        .logo-img:hover { transform: scale(1.02); }
+        .nav-links {
+            display: flex;
+            gap: 36px;
+        }
+        .nav-links a {
+            color: #1e2a3a;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            letter-spacing: 0.5px;
+            padding: 4px 0;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2.5px;
+            background: linear-gradient(90deg, #f1c40f, #d4a017);
+            border-radius: 4px;
+            transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .nav-links a:hover { color: #d4a017; }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a.active { color: #d4a017; font-weight: 600; }
+        .nav-links a.active::after { width: 100%; }
+        .top-right {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e2a3a;
+            font-size: 18px;
+            font-weight: 500;
+            gap: 8px;
+            white-space: nowrap;
+            height: auto;
+        }
+        .top-right .icon { font-size: 20px; opacity: 0.7; }
+        .top-right .highlight { color: #d4a017; font-weight: 600; }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 8px 6px;
+            cursor: pointer;
+            outline: none;
+        }
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 3px;
+            background: #1e2a3a;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+
+        /* ★ 面包屑 */
+        .breadcrumb {
+            max-width: 1100px;
+            margin: 12px auto 0;
+            padding: 0 20px;
+            font-size: 14px;
+            color: #555;
+        }
+        .breadcrumb ol {
+            list-style: none;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .breadcrumb a { color: #d4a017; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+
+        /* ============================================================
+           Banner
+           ============================================================ */
+        .hero {
+            background-image: url('images_webp/SKMEI.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 55vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+            margin: 30px 30px 0;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 20, 30, 0.20);
+            z-index: -1;
+        }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 span { color: #f1c40f; }
+        .hero p {
+            font-size: 20px;
+            font-weight: 400;
+            max-width: 800px;
+            letter-spacing: 1.5px;
+            padding: 12px 32px;
+            border-radius: 50px;
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(241, 196, 15, 0.2);
+            color: #ffcc00;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============================================================
+           服务卡片
+           ============================================================ */
+        .services {
+            max-width: 1100px;
+            margin: 30px auto 20px;
+            padding: 40px 30px;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.04);
+            position: relative;
+            z-index: 1;
+        }
+        .services h2 {
+            text-align: center;
+            font-size: 34px;
+            font-weight: 700;
+            color: #1a2a3a;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+        .services h2::after {
+            content: "";
+            display: block;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, #f1c40f, #d4a017);
+            margin: 12px auto 0;
+            border-radius: 4px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 35px 28px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(0, 0, 0, 0.02);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #f1c40f, #d4a017);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .card:hover::before { opacity: 1; }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: #f1c40f;
+        }
+        .card .icon {
+            font-size: 52px;
+            margin-bottom: 12px;
+            display: inline-block;
+            background: #f8f9fa;
+            padding: 16px;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s;
+        }
+        .card:hover .icon { transform: scale(1.08); }
+        .card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a2a3a;
+            margin-bottom: 12px;
+        }
+        .card p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 22px;
+            line-height: 1.7;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: linear-gradient(135deg, #f1c40f, #d4a017);
+            color: #1a2a3a;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(241, 196, 15, 0.3);
+            letter-spacing: 0.5px;
+        }
+        .btn:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(241, 196, 15, 0.4);
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: #fff;
+        }
+
+        /* ============================================================
+           工厂预览
+           ============================================================ */
+        .factory-preview {
+            max-width: 1100px;
+            margin: 20px auto 30px;
+            padding: 40px 30px;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.04);
+            position: relative;
+            z-index: 1;
+        }
+        .factory-preview h2 {
+            text-align: center;
+            font-size: 34px;
+            font-weight: 700;
+            color: #1a2a3a;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+        .factory-preview h2::after {
+            content: "";
+            display: block;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, #f1c40f, #d4a017);
+            margin: 12px auto 0;
+            border-radius: 4px;
+        }
+        .factory-preview .row-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1a2a3a;
+            margin: 30px 0 16px 0;
+            text-align: center;
+        }
+        .image-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .image-row img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+            background: #f8f9fa;
+            cursor: pointer;
+        }
+        .image-row img:hover {
+            transform: scale(1.04);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+            border-color: #f1c40f;
+        }
+        .factory-preview .btn-wrapper {
+            text-align: center;
+            margin: 30px 0 10px;
+        }
+
+        /* ============================================================
+           联系方式
+           ============================================================ */
+        .contact-section {
+            background: linear-gradient(145deg, #1a2a3a, #0f1a24);
+            color: #e8e8e8;
+            padding: 60px 20px 40px;
+            margin-top: 30px;
+            border-top: 4px solid #d4a017;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(212, 160, 23, 0.04) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .contact-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 50px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .contact-info h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 28px;
+            color: #f1c40f;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+        }
+        .contact-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #f1c40f;
+            border-radius: 2px;
+        }
+        .contact-info p {
+            margin-bottom: 12px;
+            font-size: 17px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .contact-info .label {
+            font-weight: 600;
+            min-width: 80px;
+            color: #f1c40f;
+            letter-spacing: 0.5px;
+        }
+        .contact-info .label+span { word-break: break-word; }
+        .contact-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .contact-image img {
+            width: 100%;
+            max-width: 750px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+            border: 2px solid rgba(241, 196, 15, 0.20);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            display: block;
+            cursor: pointer;
+        }
+        .contact-image img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 16px 50px rgba(241, 196, 15, 0.25);
+            border-color: #f1c40f;
+        }
+
+        /* ============================================================
+           模态框（左右翻动画廊）
+           ============================================================ */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-overlay .modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            background: transparent;
+            border-radius: 16px;
+            cursor: default;
+            animation: scaleIn 0.25s ease;
+        }
+        .modal-overlay .modal-content img {
+            max-width: 90vw;
+            max-height: 85vh;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        .close-btn, .gallery-prev, .gallery-next {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            background: #d4a017;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+        }
+        .close-btn:hover, .gallery-prev:hover, .gallery-next:hover { background: #f1c40f; color: #1e2a3a; }
+        .close-btn { top: -55px; right: 0; }
+        .gallery-prev { left: -70px; top: 50%; transform: translateY(-50%); }
+        .gallery-next { right: -70px; top: 50%; transform: translateY(-50%); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* ============================================================
+           页脚
+           ============================================================ */
+        .footer-bottom {
+            text-align: center;
+            padding: 24px;
+            background: #09121c;
+            color: #7a8a9a;
+            font-size: 15px;
+            border-top: 1px solid #1e2c3a;
+            letter-spacing: 0.3px;
+        }
+        .footer-bottom a { color: #f1c40f; text-decoration: none; transition: color 0.3s; }
+        .footer-bottom a:hover { color: #ffffff; }
+
+        /* ============================================================
+           响应式
+           ============================================================ */
+        @media (max-width: 1024px) {
+            .image-row { grid-template-columns: repeat(3, 1fr); }
+            .image-row img { height: 300px; }
+            .contact-container { gap: 30px; }
+            .contact-image img { max-width: 600px; }
+        }
+
+        @media (max-width: 768px) {
+            /* 导航栏改为：汉堡靠左，左右信息分占两侧，Logo 和导航独占一行居中 */
+            .top-bar { flex-wrap: wrap; padding: 6px 16px; min-height: 56px; align-items: center; gap: 6px; }
+            .hamburger { display: flex; order: 0; flex-shrink: 0; padding: 4px 6px; margin-right: 8px; }
+            .top-left { flex: 1; order: 1; height: auto; padding: 0; justify-content: flex-start; font-size: 12px; gap: 4px; white-space: nowrap; letter-spacing: 0; }
+            .top-left .icon { font-size: 16px; }
+            .top-right { flex: 1; order: 2; height: auto; padding: 0; justify-content: flex-end; font-size: 12px; gap: 4px; white-space: nowrap; letter-spacing: 0; }
+            .top-right .icon { font-size: 16px; }
+            .top-center { flex: 1 1 100%; order: 3; margin: 4px 0 6px 0; gap: 2px; }
+            .logo-img { height: 70px; width: auto; max-width: 100px; }
+            .nav-links { display: flex; flex-direction: column; gap: 6px; width: 100%; max-height: 0; overflow: hidden; opacity: 0; padding-top: 0; transition: max-height 0.35s ease, opacity 0.3s ease, padding 0.3s; order: 4; flex-basis: 100%; border-top: 1px solid rgba(0, 0, 0, 0.05); margin-top: 6px; }
+            .nav-links.open { max-height: 400px; opacity: 1; padding-top: 12px; }
+            .nav-links a { font-size: 16px; text-align: center; padding: 8px 0; border-bottom: 1px solid rgba(0, 0, 0, 0.03); }
+            .nav-links a:last-child { border-bottom: none; }
+            .nav-links a::after { display: none; }
+            .breadcrumb { font-size: 12px; padding: 0 16px; }
+            .hero { margin: 20px 16px 0; min-height: 40vh; border-radius: 24px; padding: 30px 16px; }
+            .hero h1 { font-size: 30px; }
+            .hero p { font-size: 16px; padding: 8px 18px; }
+            .services, .factory-preview { padding: 30px 20px; margin: 20px 16px; border-radius: 24px; }
+            .services h2, .factory-preview h2 { font-size: 28px; }
+            .card-grid { grid-template-columns: 1fr; gap: 24px; }
+            .image-row { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .image-row img { height: 220px; }
+            .contact-container { grid-template-columns: 1fr; gap: 30px; text-align: left; }
+            /* ★★★ 修正：取消名片图片在前，让它显示在文字下方 ★★★ */
+            .contact-image { order: 0; }
+            .contact-image img { max-width: 85%; margin: 0 auto; }
+            .contact-section { padding: 40px 20px 30px; }
+            .contact-info p { flex-wrap: wrap; gap: 6px; }
+            .contact-info .label { min-width: 60px; }
+            .gallery-prev { left: 10px; }
+            .gallery-next { right: 10px; }
+        }
+
+        @media (max-width: 480px) {
+            .top-left, .top-right { font-size: 11px; }
+            .top-left .icon, .top-right .icon { font-size: 14px; }
+            .logo-img { height: 60px; max-width: 80px; }
+            .hamburger span { width: 20px; height: 2.5px; }
+            .nav-links a { font-size: 15px; }
+            .hero { margin: 16px 12px 0; min-height: 35vh; border-radius: 20px; padding: 24px 12px; }
+            .hero h1 { font-size: 24px; }
+            .hero p { font-size: 14px; padding: 6px 14px; }
+            .services, .factory-preview { padding: 24px 16px; margin: 16px 12px; border-radius: 20px; }
+            .services h2, .factory-preview h2 { font-size: 24px; }
+            .btn { padding: 10px 24px; font-size: 14px; }
+            .image-row { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .image-row img { height: 160px; }
+            .contact-image img { max-width: 95%; }
+        }
+        @media (max-width: 360px) {
+            .top-left, .top-right { font-size: 10px; }
+            .logo-img { height: 50px; max-width: 60px; }
+            .image-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .image-row img { height: 120px; }
+            .contact-image img { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================================ 导航栏 ============================================================ -->
+    <header class="top-bar">
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+        <div class="top-left"><span class="icon">💬</span><span class="highlight">WhatsApp</span>: +86 18784776243</div>
+        <div class="top-center">
+            <img src="images_webp/LOGO.webp" alt="SKMEI Watch Manufacturer Logo" class="logo-img" />
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html" class="active">Home</a>
+                <a href="products.html">Products</a>
+                <a href="about.html">About</a>
+            </nav>
+        </div>
+        <div class="top-right"><span class="icon">📧</span><span class="highlight">Email</span>: sales08@skmei.com</div>
+    </header>
+
+    <!-- ★ 面包屑 -->
+    <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="https://www.skmeiglobal.com/">Home</a></li><li>›</li><li>Watch Manufacturer</li></ol></nav>
+
+    <!-- ============================================================ Banner ============================================================ -->
+    <section class="hero">
+        <h1>Welcome to <span>SKMEI</span> Manufacturing<span> Factory</span></h1>
+        <p>Stable supply chain · Good Quality · Better Service · Free Design</p>
+    </section>
+
+    <!-- ============================================================ 服务卡片 ============================================================ -->
+    <section class="services" id="services">
+        <h2>Our Services</h2>
+        <div class="card-grid">
+            <div class="card"><div class="icon">📦</div><h3>Wholesale Service</h3><p>Bulk orders with competitive pricing. Fast delivery and reliable quality assurance for global partners.</p><a href="products.html?service=wholesale" class="btn">Learn More →</a></div>
+            <div class="card"><div class="icon">🔧</div><h3>Custom Service</h3><p>Tailor-made solutions for your specific needs. From design to production, we deliver excellence.</p><a href="products.html?service=custom" class="btn">Learn More →</a></div>
+        </div>
+    </section>
+
+    <!-- ============================================================ 工厂预览 ============================================================ -->
+    <section class="factory-preview">
+        <h2>Factory Tour &amp; Certificates</h2>
+        <div class="row-title">🏅 Certificates</div>
+        <div class="image-row">
+            <img loading="lazy" src="images_webp/index/BSCI.webp" alt="SKMEI BSCI certificate" onclick="openGallery(0)" />
+            <img loading="lazy" src="images_webp/index/CE1.webp" alt="SKMEI CE certificate" onclick="openGallery(1)" />
+            <img loading="lazy" src="images_webp/index/CE2.webp" alt="SKMEI CE certificate" onclick="openGallery(2)" />
+            <img loading="lazy" src="images_webp/index/ISO.webp" alt="SKMEI ISO certificate" onclick="openGallery(3)" />
+        </div>
+        <div class="row-title">🌍 Global Customers</div>
+        <div class="image-row">
+            <img loading="lazy" src="images_webp/index/factory 1.webp" alt="Assembly line" onclick="openGallery(4)" />
+            <img loading="lazy" src="images_webp/index/factory 2.webp" alt="Quality control" onclick="openGallery(5)" />
+            <img loading="lazy" src="images_webp/index/factory 3.webp" alt="Warehouse" onclick="openGallery(6)" />
+            <img loading="lazy" src="images_webp/index/factory 4.webp" alt="Packaging" onclick="openGallery(7)" />
+        </div>
+        <div class="btn-wrapper"><a href="about.html#gallery" class="btn">View More Factory Photos →</a></div>
+    </section>
+
+    <!-- ============================================================ 联系方式 ============================================================ -->
+    <section class="contact-section" id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>📍 Contact &amp; Address</h3>
+                <p><span class="label">Address</span> <span>Block C6 Wanyang Zhongchuang Industrial Park, 41 Dawang Road, Zhaoqing High-tech Zone, Sihui City, Guangdong Province, China</span></p>
+                <p><span class="label">WhatsApp</span> <span>+86 18784776243</span></p>
+                <p><span class="label">Wechat</span> <span>SKMEI_Briar</span></p>
+                <p><span class="label">Email</span> <span>sales08@skmei.com</span></p>
+                <p><span class="label">Hours</span> <span>Mon-Fri 08:20 - 17:20 (Chinese Time)</span></p>
+            </div>
+            <div class="contact-image">
+                <img loading="lazy" src="images_webp/contact-card.webp" alt="SKMEI business card" onclick="openGallery(8)" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ 模态框 ============================================================ -->
+    <div class="modal-overlay" id="imageModal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation();">
+            <button class="gallery-prev" onclick="changeGallery(-1)">❮</button>
+            <img loading="lazy" id="modalImage" src="" alt="Gallery Image" />
+            <button class="gallery-next" onclick="changeGallery(1)">❯</button>
+            <button class="close-btn" onclick="closeModal()">✕</button>
+        </div>
+    </div>
+
+    <div class="footer-bottom">&copy; 2026 <a href="#">SKMEI Brand</a> — All rights reserved.</div>
+
+    <script>
+        // ========================= 汉堡菜单 =========================
+        document.addEventListener('DOMContentLoaded', function() {
+            var hamburger = document.getElementById('hamburger');
+            var navLinks = document.getElementById('navLinks');
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('active');
+                navLinks.classList.toggle('open');
+            });
+            navLinks.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('open');
+                });
+            });
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.top-bar')) {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('open');
+                }
+            });
+        });
+        // ========================= 画廊数据（9张） =========================
+        var galleryImages = [
+            "images_webp/index/BSCI.webp", "images_webp/index/CE1.webp", "images_webp/index/CE2.webp", "images_webp/index/ISO.webp",
+            "images_webp/index/factory 1.webp", "images_webp/index/factory 2.webp", "images_webp/index/factory 3.webp", "images_webp/index/factory 4.webp",
+            "images_webp/contact-card.webp"
+        ];
+        var currentGallery = 0;
+        function openGallery(index) { currentGallery = index; document.getElementById('modalImage').src = galleryImages[index]; document.getElementById('imageModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function changeGallery(step) { currentGallery += step; if (currentGallery < 0) currentGallery = galleryImages.length - 1; if (currentGallery >= galleryImages.length) currentGallery = 0; document.getElementById('modalImage').src = galleryImages[currentGallery]; }
+        function closeModal() { document.getElementById('imageModal').classList.remove('active'); document.body.style.overflow = ''; }
+        document.getElementById('imageModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'ArrowRight') changeGallery(1); if (e.key === 'ArrowLeft') changeGallery(-1); if (e.key === 'Escape') closeModal(); });
+    </script>
+</body>
+</html>
