@@ -227,7 +227,7 @@
                 <p><span class="label">Email</span> <span>sales08@skmei.com</span></p>
                 <p><span class="label">Hours</span> <span>Mon-Fri 08:20 – 17:20 (China Time)</span></p>
             </div>
-            <div class="contact-image"><img src="images_webp/contact-card.webp" alt="SKMEI business card" title="SKMEI contact information" loading="lazy" onclick="openGallery(16)" /></div>
+            <div class="contact-image"><img src="images_webp/contact-card-new.webp" alt="SKMEI business card" title="SKMEI contact information" loading="lazy" onclick="openGallery(16)" /></div>
         </div>
     </section>
 
@@ -252,7 +252,7 @@
             document.addEventListener("click", function(e) { if (!e.target.closest(".top-bar")) { hamburger.classList.remove("active"); navLinks.classList.remove("open"); } });
         }
         document.querySelectorAll(".faq-question").forEach(function(btn) { btn.onclick = function() { var item = this.parentElement; document.querySelectorAll(".faq-item").forEach(function(i) { if (i !== item) i.classList.remove("active"); }); item.classList.toggle("active"); }; });
-        var galleryImages = ["images_webp/about/outside.webp","images_webp/about/people.webp","images_webp/about/saler.webp","images_webp/about/Sample hourse.webp","images_webp/about/office.webp","images_webp/about/company.webp","images_webp/about/office2.webp","images_webp/about/warehouse4.webp","images_webp/about/assembly.webp","images_webp/about/warehouse3.webp","images_webp/about/warehouse1.webp","images_webp/about/box.webp","images_webp/about/warehouse2.webp","images_webp/about/watch.webp","images_webp/about/Certificate.webp","images_webp/about/watch2.webp","images_webp/contact-card.webp"];
+        var galleryImages = ["images_webp/about/outside.webp","images_webp/about/people.webp","images_webp/about/saler.webp","images_webp/about/Sample hourse.webp","images_webp/about/office.webp","images_webp/about/company.webp","images_webp/about/office2.webp","images_webp/about/warehouse4.webp","images_webp/about/assembly.webp","images_webp/about/warehouse3.webp","images_webp/about/warehouse1.webp","images_webp/about/box.webp","images_webp/about/warehouse2.webp","images_webp/about/watch.webp","images_webp/about/Certificate.webp","images_webp/about/watch2.webp","images_webp/contact-card-new.webp"];
         var currentGallery = 0;
         function openGallery(index) { currentGallery = index; document.getElementById("modalImage").src = galleryImages[index]; document.getElementById("imageModal").classList.add("active"); document.body.style.overflow = "hidden"; }
         function changeGallery(step) { currentGallery += step; if (currentGallery < 0) currentGallery = galleryImages.length - 1; if (currentGallery >= galleryImages.length) currentGallery = 0; document.getElementById("modalImage").src = galleryImages[currentGallery]; }

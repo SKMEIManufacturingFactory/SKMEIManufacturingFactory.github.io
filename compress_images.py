@@ -46,7 +46,10 @@ for root, dirs, files in os.walk(source_folder):
                     Image.Resampling.LANCZOS
                 )
 
-                if img.mode != "RGB":
+                # 保留透明通道
+                if img.mode in ("RGBA", "LA"):
+                    pass
+                else:
                     img = img.convert("RGB")
 
                 img.save(
