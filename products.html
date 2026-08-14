@@ -1323,13 +1323,16 @@
         };
 
         const allProducts = Object.values(productData).flatMap(arr => arr);
-                // ========================= 全局变量（新增） =========================
+        // ========================= 全局变量（新增） =========================
         let currentCategory = 'all';
         let currentService = null;
         
         // ★★★ 新增的加载逻辑 ★★★
         let currentLoadStep = 60;     // 每次点击加载的数量
         let currentLoadLimit = 60;    // 当前已经加载的总数量
+
+        // ★★★ 新增：用于取消旧图片加载的 AbortController ★★★
+        let currentAbortController = null;
 
         const grid = document.getElementById('productGrid');
         const categoryTitle = document.getElementById('categoryTitle');
@@ -1443,8 +1446,21 @@
             }
         }
 
-               // ========================= 核心渲染（带分批加载功能） =========================
+        // ========================= 核心渲染（带分批加载功能 + 取消旧请求） =========================
         function renderProducts(categoryKey, shouldScroll, isLoadMore = false) {
+            // ★★★ 切换分类时，取消所有正在进行的图片加载 ★★★
+            if (currentAbortController) {
+                currentAbortController.abort();
+                console.log('🛑 已取消旧分类的图片加载');
+            }
+            // 创建新的 AbortController
+            currentAbortController = new AbortController();
+
+            // ★★★ 如果不是“加载更多”，清空网格并显示加载提示 ★★★
+            if (!isLoadMore) {
+                grid.innerHTML = '<div style="text-align:center;padding:60px 0;color:#888;font-size:18px;">⏳ 加载中...</div>';
+            }
+
             let products = [];
             let title = '';
 
@@ -1534,7 +1550,7 @@
 
             // 生成卡片 HTML
             let html = '';
-            displayProducts.forEach((p) => {
+            displayProducts.forEach((p, index) => {
                 const mainImg = p.images[0];
                 const thumbs = p.images.slice(1);
                 const thumbsHtml = thumbs.length > 0 ? `
@@ -1548,420 +1564,21 @@
                     </div>
                 ` : '';
 
-                html += `
-                    <div class="product-item" data-images='${JSON.stringify(p.images)}' data-current-index="0">
-                        <div class="image-container">
-                            <button class="arrow-btn left-arrow" onclick="changeProductImage(this, -1)">❮</button>
-                            <div class="main-image">
-                                <img loading="lazy" src="${mainImg}" alt="${p.model}" />
-                            </div>
-                            <button class="arrow-btn right-arrow" onclick="changeProductImage(this, 1)">❯</button>
-                        </div>
-                        ${thumbsHtml}
-                        <div class="product-name">${p.model}</div>
-                    </div>
-                `;
-            });
-
-            // ★★★ 追加渲染逻辑 ★★★
-            if (!isLoadMore) {
-                // 首次加载（或切换分类）时，彻底清空并重绘
-                grid.innerHTML = html;
-            } else {
-                // 点击 "Load More" 时，在现有卡片后面继续追加新卡片
-                grid.insertAdjacentHTML('beforeend', html);
-            }
-
-            // ★★★ 动态添加/更新 "Load More" 按钮 ★★★
-            // 移除旧的按钮容器（保证不重复叠加）
-            let oldBtnWrapper = document.getElementById('loadMoreBtnWrapper');
-            if (oldBtnWrapper) oldBtnWrapper.remove();
-
-            if (hasMore) {
-                // 创建一个按钮容器
-                let btnWrapper = document.createElement('div');
-                btnWrapper.id = 'loadMoreBtnWrapper';
-                btnWrapper.style.cssText = 'text-align: center; margin: 30px 0 10px 0;';
-                btnWrapper.innerHTML = `<button class="btn" id="loadMoreBtn" style="cursor:pointer;">Load More Products (${displayProducts.length} / ${products.length})</button>`;
-                
-                // 将容器插入到产品网格的后面
-                grid.parentElement.appendChild(btnWrapper);
-
-                // 给按钮绑定点击事件
-                document.getElementById('loadMoreBtn').addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    this.textContent = 'Loading...';
-                    this.disabled = true;
-                    
-                    // 触发下一次加载
-                    renderProducts(categoryKey, false, true);
-                    
-                    // 按钮会在下次渲染时被移除并重建，因此这里不需要额外处理
-                });
-            }
-
-            // ★★★ 默认的滚动逻辑（当切换分类时） ★★★
-            if (shouldScroll) {
-                const displayEl = document.getElementById('productDisplay');
-                if (displayEl) {
-                    const topOffset = displayEl.getBoundingClientRect().top + window.pageYOffset - 150;
-                    window.scrollTo({ top: topOffset, behavior: 'smooth' });
-                }
-            }
-
-            // 绑定鼠标悬停/点击事件（逻辑完全不变）
-            document.querySelectorAll('.product-item').forEach(item => {
-                const mainImg = item.querySelector('.main-image img');
-                const thumbs = item.querySelectorAll('.thumb');
-                const defaultImg = mainImg.src;
-
-                thumbs.forEach(thumb => {
-                    thumb.addEventListener('mouseenter', function() {
-                        const src = this.dataset.src;
-                        mainImg.src = src;
-                        thumbs.forEach(t => t.classList.remove('active'));
-                        this.classList.add('active');
-                        const images = JSON.parse(item.dataset.images);
-                        const index = images.indexOf(src);
-                        if (index !== -1) item.dataset.currentIndex = index;
-                    });
-                    thumb.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        const src = this.dataset.src;
-                        openModal(src, this.closest('.product-item'));
-                    });
-                });
-
-                const mainImageContainer = item.querySelector('.main-image');
-                mainImageContainer.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const currentSrc = mainImg.src;
-                    if (currentSrc === defaultImg) {
-                        openModal(currentSrc, this.closest('.product-item'));
-                    }
-                });
-
-                item.addEventListener('mouseleave', function() {
-                    mainImg.src = defaultImg;
-                    thumbs.forEach(t => t.classList.remove('active'));
-                    item.dataset.currentIndex = 0;
-                });
-            });
-        }        // ========================= 核心渲染（带分批加载功能） =========================
-        function renderProducts(categoryKey, shouldScroll, isLoadMore = false) {
-            let products = [];
-            let title = '';
-
-            // 1. 获取分类商品数据的逻辑（保持原有逻辑不动）
-            if (categoryKey === 'all') {
-                const hiddenKeys = getHiddenCategoryKeys();
-                products = allProducts.filter(p => {
-                    for (const key in productData) {
-                        if (productData[key].includes(p)) {
-                            return !hiddenKeys.includes(key);
-                        }
-                    }
-                    return true;
-                });
-                title = 'All Types';
-            } else if (productData[categoryKey]) {
-                const whitelist = customNameMap[categoryKey] || [];
-                if (whitelist.length > 0) {
-                    products = productData[categoryKey].filter(item => whitelist.includes(item.model));
-                } else {
-                    products = [];
-                }
-                // ...标题生成逻辑保持不变...
-                let parts = categoryKey.split('-');
-                if (categoryKey.startsWith('multi-function')) {
-                    const firstPart = parts[0] + '-' + parts[1];
-                    const restParts = parts.slice(2);
-                    parts = [firstPart, ...restParts];
-                }
-                const map = {
-                    'stainless': 'Stainless Steel', 'couple': 'Couple', 'multi-function': 'Multi-function',
-                    'dual-movement': 'Dual-movement', 'digital': 'Digital', 'Mechanical': 'Mechanical',
-                    'men-quartz': "Men's Quartz", 'women-quartz': "Women's Quartz", 'kids': 'Kids', 'prayer': 'Prayer',
-                    'digital-ss': 'Stainless Steel Band', 'digital-leather': 'Leather Strap',
-                    'digital-silicone': 'Silicone Strap', 'digital-pu': 'PU Strap',
-                    'dual-movement-ss': 'Stainless Steel Band', 'dual-movement-leather': 'Leather Strap',
-                    'dual-movement-silicone': 'Silicone Strap', 'dual-movement-pu': 'PU Strap',
-                    'ss': 'Stainless Steel Band', 'leather': 'Leather Strap', 'silicone': 'Silicone Strap',
-                    'nylon': 'Nylon Strap', 'pu': 'PU Strap',
-                    'barometer': 'Barometer', 'compass': 'Compass', 'pedometer': 'Pedometer', 'solar': 'Solar',
-                    'thermometer': 'Thermometer',
-                };
-                title = parts.map(p => map[p] || p).join(' / ');
-            } else if (parentCategories[categoryKey]) {
-                const childKeys = parentCategories[categoryKey];
-                products = childKeys.flatMap(k => {
-                    if (isCategoryFiltered(k)) return [];
-                    const subData = productData[k] || [];
-                    const whitelist = customNameMap[k] || [];
-                    if (whitelist.length > 0) {
-                        return subData.filter(item => whitelist.includes(item.model));
-                    }
-                    return subData;
-                });
-                const map = {
-                    'stainless': 'Stainless Steel Watches', 'couple': 'Couple Watches',
-                    'multi-function': 'Multi-function Watches', 'digital': 'Digital Watches',
-                    'Mechanical': 'Mechanical Watches', 'dual-movement': 'Dual-movement Watches',
-                    'men-quartz': "Men's Quartz Watches", 'women-quartz': "Women's Quartz Watches",
-                    'kids': "Kids' Watches",
-                };
-                title = map[categoryKey] || categoryKey;
-            } else {
-                products = [];
-                title = 'No products';
-            }
-
-            categoryTitle.textContent = title;
-
-            if (products.length === 0) {
-                grid.innerHTML = '<div class="no-products">No products found in this category.</div>';
-                return;
-            }
-
-            // ★★★ 分批加载逻辑核心 ★★★
-            // 如果不是点击"加载更多"，说明是切换了分类，重置 loading 计数为 60
-            if (!isLoadMore) {
-                currentLoadLimit = currentLoadStep;
-            } else {
-                // 如果是点击"加载更多"，在当前基础上再加 60
-                currentLoadLimit += currentLoadStep;
-            }
-
-            // 截取要展示的产品（限制当前展示数量，最多不超过总数量）
-            let displayProducts = products.slice(0, currentLoadLimit);
-            let hasMore = products.length > currentLoadLimit; // 判断是否还有更多
-
-            // 生成卡片 HTML
-            let html = '';
-            displayProducts.forEach((p) => {
-                const mainImg = p.images[0];
-                const thumbs = p.images.slice(1);
-                const thumbsHtml = thumbs.length > 0 ? `
-                    <div class="thumbnails">
-                        ${thumbs.map((src, idx) => `
-                            <div class="thumb ${idx === 0 ? 'active' : ''}" data-src="${src}">
-                                <img loading="lazy" src="${src}" alt="color ${idx+1}" 
-                                     onerror="this.parentElement.style.display='none'" />
-                            </div>
-                        `).join('')}
-                    </div>
-                ` : '';
+                // ★★★ 首屏前12张图片优先加载 ★★★
+                const fetchPriority = index < 12 ? 'high' : 'low';
 
                 html += `
                     <div class="product-item" data-images='${JSON.stringify(p.images)}' data-current-index="0">
                         <div class="image-container">
                             <button class="arrow-btn left-arrow" onclick="changeProductImage(this, -1)">❮</button>
                             <div class="main-image">
-                                <img loading="lazy" src="${mainImg}" alt="${p.model}" />
-                            </div>
-                            <button class="arrow-btn right-arrow" onclick="changeProductImage(this, 1)">❯</button>
-                        </div>
-                        ${thumbsHtml}
-                        <div class="product-name">${p.model}</div>
-                    </div>
-                `;
-            });
-
-            // ★★★ 追加渲染逻辑 ★★★
-            if (!isLoadMore) {
-                // 首次加载（或切换分类）时，彻底清空并重绘
-                grid.innerHTML = html;
-            } else {
-                // 点击 "Load More" 时，在现有卡片后面继续追加新卡片
-                grid.insertAdjacentHTML('beforeend', html);
-            }
-
-            // ★★★ 动态添加/更新 "Load More" 按钮 ★★★
-            // 移除旧的按钮容器（保证不重复叠加）
-            let oldBtnWrapper = document.getElementById('loadMoreBtnWrapper');
-            if (oldBtnWrapper) oldBtnWrapper.remove();
-
-            if (hasMore) {
-                // 创建一个按钮容器
-                let btnWrapper = document.createElement('div');
-                btnWrapper.id = 'loadMoreBtnWrapper';
-                btnWrapper.style.cssText = 'text-align: center; margin: 30px 0 10px 0;';
-                btnWrapper.innerHTML = `<button class="btn" id="loadMoreBtn" style="cursor:pointer;">Load More Products (${displayProducts.length} / ${products.length})</button>`;
-                
-                // 将容器插入到产品网格的后面
-                grid.parentElement.appendChild(btnWrapper);
-
-                // 给按钮绑定点击事件
-                document.getElementById('loadMoreBtn').addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    this.textContent = 'Loading...';
-                    this.disabled = true;
-                    
-                    // 触发下一次加载
-                    renderProducts(categoryKey, false, true);
-                    
-                    // 按钮会在下次渲染时被移除并重建，因此这里不需要额外处理
-                });
-            }
-
-            // ★★★ 默认的滚动逻辑（当切换分类时） ★★★
-            if (shouldScroll) {
-                const displayEl = document.getElementById('productDisplay');
-                if (displayEl) {
-                    const topOffset = displayEl.getBoundingClientRect().top + window.pageYOffset - 150;
-                    window.scrollTo({ top: topOffset, behavior: 'smooth' });
-                }
-            }
-
-            // 绑定鼠标悬停/点击事件（逻辑完全不变）
-            document.querySelectorAll('.product-item').forEach(item => {
-                const mainImg = item.querySelector('.main-image img');
-                const thumbs = item.querySelectorAll('.thumb');
-                const defaultImg = mainImg.src;
-
-                thumbs.forEach(thumb => {
-                    thumb.addEventListener('mouseenter', function() {
-                        const src = this.dataset.src;
-                        mainImg.src = src;
-                        thumbs.forEach(t => t.classList.remove('active'));
-                        this.classList.add('active');
-                        const images = JSON.parse(item.dataset.images);
-                        const index = images.indexOf(src);
-                        if (index !== -1) item.dataset.currentIndex = index;
-                    });
-                    thumb.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        const src = this.dataset.src;
-                        openModal(src, this.closest('.product-item'));
-                    });
-                });
-
-                const mainImageContainer = item.querySelector('.main-image');
-                mainImageContainer.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const currentSrc = mainImg.src;
-                    if (currentSrc === defaultImg) {
-                        openModal(currentSrc, this.closest('.product-item'));
-                    }
-                });
-
-                item.addEventListener('mouseleave', function() {
-                    mainImg.src = defaultImg;
-                    thumbs.forEach(t => t.classList.remove('active'));
-                    item.dataset.currentIndex = 0;
-                });
-            });
-        }        // ========================= 核心渲染（带分批加载功能） =========================
-        function renderProducts(categoryKey, shouldScroll, isLoadMore = false) {
-            let products = [];
-            let title = '';
-
-            // 1. 获取分类商品数据的逻辑（保持原有逻辑不动）
-            if (categoryKey === 'all') {
-                const hiddenKeys = getHiddenCategoryKeys();
-                products = allProducts.filter(p => {
-                    for (const key in productData) {
-                        if (productData[key].includes(p)) {
-                            return !hiddenKeys.includes(key);
-                        }
-                    }
-                    return true;
-                });
-                title = 'All Types';
-            } else if (productData[categoryKey]) {
-                const whitelist = customNameMap[categoryKey] || [];
-                if (whitelist.length > 0) {
-                    products = productData[categoryKey].filter(item => whitelist.includes(item.model));
-                } else {
-                    products = [];
-                }
-                // ...标题生成逻辑保持不变...
-                let parts = categoryKey.split('-');
-                if (categoryKey.startsWith('multi-function')) {
-                    const firstPart = parts[0] + '-' + parts[1];
-                    const restParts = parts.slice(2);
-                    parts = [firstPart, ...restParts];
-                }
-                const map = {
-                    'stainless': 'Stainless Steel', 'couple': 'Couple', 'multi-function': 'Multi-function',
-                    'dual-movement': 'Dual-movement', 'digital': 'Digital', 'Mechanical': 'Mechanical',
-                    'men-quartz': "Men's Quartz", 'women-quartz': "Women's Quartz", 'kids': 'Kids', 'prayer': 'Prayer',
-                    'digital-ss': 'Stainless Steel Band', 'digital-leather': 'Leather Strap',
-                    'digital-silicone': 'Silicone Strap', 'digital-pu': 'PU Strap',
-                    'dual-movement-ss': 'Stainless Steel Band', 'dual-movement-leather': 'Leather Strap',
-                    'dual-movement-silicone': 'Silicone Strap', 'dual-movement-pu': 'PU Strap',
-                    'ss': 'Stainless Steel Band', 'leather': 'Leather Strap', 'silicone': 'Silicone Strap',
-                    'nylon': 'Nylon Strap', 'pu': 'PU Strap',
-                    'barometer': 'Barometer', 'compass': 'Compass', 'pedometer': 'Pedometer', 'solar': 'Solar',
-                    'thermometer': 'Thermometer',
-                };
-                title = parts.map(p => map[p] || p).join(' / ');
-            } else if (parentCategories[categoryKey]) {
-                const childKeys = parentCategories[categoryKey];
-                products = childKeys.flatMap(k => {
-                    if (isCategoryFiltered(k)) return [];
-                    const subData = productData[k] || [];
-                    const whitelist = customNameMap[k] || [];
-                    if (whitelist.length > 0) {
-                        return subData.filter(item => whitelist.includes(item.model));
-                    }
-                    return subData;
-                });
-                const map = {
-                    'stainless': 'Stainless Steel Watches', 'couple': 'Couple Watches',
-                    'multi-function': 'Multi-function Watches', 'digital': 'Digital Watches',
-                    'Mechanical': 'Mechanical Watches', 'dual-movement': 'Dual-movement Watches',
-                    'men-quartz': "Men's Quartz Watches", 'women-quartz': "Women's Quartz Watches",
-                    'kids': "Kids' Watches",
-                };
-                title = map[categoryKey] || categoryKey;
-            } else {
-                products = [];
-                title = 'No products';
-            }
-
-            categoryTitle.textContent = title;
-
-            if (products.length === 0) {
-                grid.innerHTML = '<div class="no-products">No products found in this category.</div>';
-                return;
-            }
-
-            // ★★★ 分批加载逻辑核心 ★★★
-            // 如果不是点击"加载更多"，说明是切换了分类，重置 loading 计数为 60
-            if (!isLoadMore) {
-                currentLoadLimit = currentLoadStep;
-            } else {
-                // 如果是点击"加载更多"，在当前基础上再加 60
-                currentLoadLimit += currentLoadStep;
-            }
-
-            // 截取要展示的产品（限制当前展示数量，最多不超过总数量）
-            let displayProducts = products.slice(0, currentLoadLimit);
-            let hasMore = products.length > currentLoadLimit; // 判断是否还有更多
-
-            // 生成卡片 HTML
-            let html = '';
-            displayProducts.forEach((p) => {
-                const mainImg = p.images[0];
-                const thumbs = p.images.slice(1);
-                const thumbsHtml = thumbs.length > 0 ? `
-                    <div class="thumbnails">
-                        ${thumbs.map((src, idx) => `
-                            <div class="thumb ${idx === 0 ? 'active' : ''}" data-src="${src}">
-                                <img loading="lazy" src="${src}" alt="color ${idx+1}" 
-                                     onerror="this.parentElement.style.display='none'" />
-                            </div>
-                        `).join('')}
-                    </div>
-                ` : '';
-
-                html += `
-                    <div class="product-item" data-images='${JSON.stringify(p.images)}' data-current-index="0">
-                        <div class="image-container">
-                            <button class="arrow-btn left-arrow" onclick="changeProductImage(this, -1)">❮</button>
-                            <div class="main-image">
-                                <img loading="lazy" src="${mainImg}" alt="${p.model}" />
+                                <img 
+                                    loading="lazy" 
+                                    src="${mainImg}" 
+                                    alt="${p.model}"
+                                    fetchpriority="${fetchPriority}"
+                                    decoding="async"
+                                />
                             </div>
                             <button class="arrow-btn right-arrow" onclick="changeProductImage(this, 1)">❯</button>
                         </div>
@@ -2056,6 +1673,7 @@
                 });
             });
         }
+
         // ========================= 导航过滤 =========================
         function filterProducts(categoryKey, element, event) {
             if (event) event.stopPropagation();
@@ -2065,6 +1683,17 @@
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             if (element) element.classList.add('active');
             currentCategory = categoryKey;
+
+            // ★★★ 新增：切换分类时，滚动到产品列表顶部 ★★★
+            const productDisplay = document.getElementById('productDisplay');
+            if (productDisplay) {
+                productDisplay.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // ★★★ 新增：重置分批加载步数（回到 60 张） ★★★
+            currentLoadStep = 60;
+            currentLoadLimit = 60;
+
             renderProducts(categoryKey, true);
         }
 
